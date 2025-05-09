@@ -1,4 +1,4 @@
-## Interactive Credit Card Side Project
+## Interactive Payment Site Project
 
 - This is a small project that reflects a payment page Front-End.
-- [Link] Check it out on here !
+- Check it out on [here](https://mvkirimi.com) !
