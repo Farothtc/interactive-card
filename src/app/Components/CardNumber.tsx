@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 export default function CardNumber({
   credentials,
   handleChange,
+  handleClick,
 }: {
   credentials: {
     name: string;
@@ -17,19 +18,115 @@ export default function CardNumber({
     cvc: string;
   };
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }) {
+  const [nameError, setNameError] = React.useState("");
+  const [numberError, setNumberError] = React.useState("");
   const [monthError, setMonthError] = React.useState("");
+  const [yearError, setYearError] = React.useState("");
+  const [cvcError, setCvcError] = React.useState("");
+
+  // Name Handlers
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (/^[a-zA-Z\s]*$/.test(value)) {
+      setNameError("");
+      handleChange(event);
+    } else {
+      setNameError("Wrong name format");
+    }
+  };
+
+  const handleNameBlur = () => {
+    if (credentials.name.trim() === "") {
+      setNameError("Cannot be blank");
+    } else {
+      setNameError("");
+    }
+  };
+
+  // Number Handlers
+
+  const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (
+      value === "" ||
+      (/^$|^\d{0,4}$|^\d{4}\s\d{0,4}$|^\d{4}\s\d{4}\s\d{0,4}$|^\d{4}\s\d{4}\s\d{4}\s\d{0,4}$/.test(
+        value
+      ) &&
+        value.length <= 19)
+    ) {
+      setNumberError("");
+      handleChange(event);
+    } else {
+      setNumberError("Wrong card number format");
+    }
+  };
+
+  const handleNumberBlur = () => {
+    if (credentials.number.trim() === "") {
+      setNumberError("Cannot be blank");
+    } else if (
+      /^$|^\d{0,4}$|^\d{4}\s\d{0,4}$|^\d{4}\s\d{4}\s\d{0,4}$|^\d{4}\s\d{4}\s\d{4}\s\d{0,4}$/.test(
+        credentials.number
+      )
+    ) {
+      setNumberError("");
+    } else {
+      setNumberError("");
+    }
+  };
+
+  // Month Handlers
 
   const handleMonthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     if (
       value === "" ||
-      (/^(0?[1-9]|1[0-2])$/.test(value) && value.length <= 2)
+      (/^$|^0?$|^0[1-9]?$|^1[0-2]?$/.test(value) && value.length <= 2)
     ) {
       setMonthError("");
       handleChange(event);
     } else {
-      setMonthError("Please enter a valid month (01-12).");
+      setMonthError("Wrong MM format");
+    }
+  };
+
+  const handleMonthBlur = () => {
+    if (credentials.month.trim() === "") {
+      setMonthError("Cannot be blank");
+    } else if (/^$|^0?$|^0[1-9]?$|^1[0-2]?$/.test(credentials.month)) {
+      setMonthError("");
+    } else {
+      setMonthError("");
+    }
+  };
+
+  // Year Handlers
+
+  const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (
+      value === "" ||
+      (/^$|^2[5-9]?$|^3[0-9]?$/.test(value) && value.length <= 2)
+    ) {
+      setYearError("");
+      handleChange(event);
+    } else {
+      setYearError("Wrong YY format");
+    }
+  };
+
+  // CVC Handlers
+
+  const handleCvcChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (value === "" || (/^\d{0,3}$/.test(value) && value.length <= 3)) {
+      setCvcError("");
+      handleChange(event);
+    } else {
+      setCvcError("Wrong CVC format");
     }
   };
 
@@ -42,31 +139,45 @@ export default function CardNumber({
               <Label htmlFor="name" className="font-medium tracking-widest">
                 CARDHOLDER NAME
               </Label>
-              <Input
-                id="name"
-                type="text"
-                onChange={handleChange}
-                name="name"
-                value={credentials.name}
-                className="h-[50px]"
-                placeholder="e.g. Jane Appleseed"
-                required
-              />
+              <div className="flex flex-col">
+                <Input
+                  id="name"
+                  type="text"
+                  onChange={handleNameChange}
+                  onBlur={handleNameBlur}
+                  name="name"
+                  value={credentials.name}
+                  className="h-[50px]"
+                  placeholder="e.g. Jane Appleseed"
+                  required
+                />
+                {nameError && (
+                  <span className="text-red-500 text-xs mt-1">{nameError}</span>
+                )}
+              </div>
             </div>
             <div className="flex flex-col space-y-3">
               <Label htmlFor="number" className="font-medium tracking-widest">
                 CARD NUMBER
               </Label>
-              <Input
-                id="number"
-                type="text"
-                onChange={handleChange}
-                name="number"
-                value={credentials.number}
-                maxLength={20}
-                className="h-[50px] text-2xl"
-                placeholder="e.g. 1234 5678 9123 0000"
-              />
+              <div className="flex flex-col">
+                <Input
+                  id="number"
+                  type="text"
+                  onChange={handleNumberChange}
+                  onBlur={handleNumberBlur}
+                  name="number"
+                  value={credentials.number}
+                  maxLength={19}
+                  className="h-[50px] text-2xl"
+                  placeholder="e.g. 1234 5678 9123 0000"
+                />
+                {numberError && (
+                  <span className="text-red-500 text-xs mt-1">
+                    {numberError}
+                  </span>
+                )}
+              </div>
             </div>
             <div className="flex flex-col space-y-3">
               <div className="flex flex-row gap-5">
@@ -83,6 +194,7 @@ export default function CardNumber({
                     id="month"
                     type="text"
                     onChange={handleMonthChange}
+                    onBlur={handleMonthBlur}
                     name="month"
                     value={credentials.month}
                     maxLength={2}
@@ -92,38 +204,52 @@ export default function CardNumber({
                     placeholder="MM"
                   />
                   {monthError && (
-                    <span className="text-red-500 text-sm mt-1">
+                    <span className="text-red-500 text-xs mt-1">
                       {monthError}
                     </span>
                   )}
                 </div>
-                <Input
-                  id="year"
-                  type="text"
-                  onChange={handleChange}
-                  name="year"
-                  value={credentials.year}
-                  maxLength={2}
-                  className="h-[50px] w-[100px]"
-                  placeholder="YY"
-                />
-                <Input
-                  id="cvc"
-                  type="text"
-                  onChange={handleChange}
-                  name="cvc"
-                  value={credentials.cvc}
-                  maxLength={3}
-                  className="h-[50px] w-full"
-                  placeholder="e.g. 123"
-                />
+                <div className="flex flex-col">
+                  <Input
+                    id="year"
+                    type="text"
+                    onChange={handleYearChange}
+                    name="year"
+                    value={credentials.year}
+                    maxLength={2}
+                    className="h-[50px] w-[100px]"
+                    placeholder="YY"
+                  />
+                  {yearError && (
+                    <span className="text-red-500 text-xs mt-1">
+                      {yearError}
+                    </span>
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <Input
+                    id="cvc"
+                    type="text"
+                    onChange={handleCvcChange}
+                    name="cvc"
+                    value={credentials.cvc}
+                    maxLength={3}
+                    className="h-[50px] w-full"
+                    placeholder="e.g. 123"
+                  />
+                  {cvcError && (
+                    <span className="text-red-500 text-xs mt-1">
+                      {cvcError}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button type="submit" className="w-full cursor-pointer">
+        <Button onClick={handleClick} className="w-full cursor-pointer">
           Confirm
         </Button>
       </CardFooter>
