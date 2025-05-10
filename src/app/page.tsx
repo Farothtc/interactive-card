@@ -11,6 +11,7 @@ export default function Home() {
     year: "",
     cvc: "",
   });
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     setCredentials((prevState) => ({
@@ -18,11 +19,20 @@ export default function Home() {
       [name]: value,
     }));
   }
+
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    const { name, number, month, year, cvc } = credentials;
+    if (name && number && month && year && cvc) {
+      console.log("form submitted");
+      setIsSubmitted(true);
+    }
+  }
   const style = {
     backgroundImage: "url(/bg-main-desktop.png)",
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
   };
+
   return (
     <main style={style} className="min-h-screen bg-white">
       <div className="container top-[50%] left-[50%] absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-row items-center justify-center gap-5">
@@ -68,7 +78,11 @@ export default function Home() {
             </span>
           </div>
         </div>
-        <CardNumber credentials={credentials} handleChange={handleChange} />
+        <CardNumber
+          credentials={credentials}
+          handleChange={handleChange}
+          handleClick={handleClick}
+        />
       </div>
     </main>
   );
