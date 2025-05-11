@@ -150,7 +150,7 @@ export default function CardNumber({
   };
 
   return (
-    <Card className="w-[450px] h-auto border-0 shadow-none">
+    <Card className="w-[375px] sm:w-[450px] h-auto border-0 shadow-none">
       <CardContent>
         <form>
           <div className="grid w-full items-center gap-4">
@@ -166,7 +166,7 @@ export default function CardNumber({
                   onBlur={handleNameBlur}
                   name="name"
                   value={credentials.name}
-                  className="h-[50px]"
+                  className="h-[50px] text-sm sm:text-base"
                   placeholder="e.g. Jane Appleseed"
                   required
                 />
@@ -188,7 +188,7 @@ export default function CardNumber({
                   name="number"
                   value={credentials.number}
                   maxLength={19}
-                  className="h-[50px] text-2xl"
+                  className="h-[50px] text-sm sm:text-2xl"
                   placeholder="e.g. 1234 5678 9123 0000"
                 />
                 {numberError && (
@@ -199,7 +199,7 @@ export default function CardNumber({
               </div>
             </div>
             <div className="flex flex-col space-y-3">
-              <div className="flex flex-row gap-5">
+              <div className="flex flex-row gap-22 sm:gap-5">
                 <Label htmlFor="month" className="font-medium tracking-widest">
                   EXP. DATE (MM/YY)
                 </Label>
@@ -219,7 +219,7 @@ export default function CardNumber({
                     maxLength={2}
                     min={0o1}
                     max={12}
-                    className="h-[50px] w-[100px]"
+                    className="h-[50px] w-[100px] text-sm sm:text-base"
                     placeholder="MM"
                   />
                   {monthError && (
@@ -237,7 +237,7 @@ export default function CardNumber({
                     name="year"
                     value={credentials.year}
                     maxLength={2}
-                    className="h-[50px] w-[100px]"
+                    className="h-[50px] w-[100px] text-sm sm:text-base"
                     placeholder="YY"
                   />
                   {yearError && (
@@ -255,7 +255,7 @@ export default function CardNumber({
                     name="cvc"
                     value={credentials.cvc}
                     maxLength={3}
-                    className="h-[50px] w-full"
+                    className="h-[50px] w-full text-sm sm:text-base"
                     placeholder="e.g. 123"
                   />
                   {cvcError && (
