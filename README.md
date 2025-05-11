@@ -16,4 +16,4 @@
 - Regex
 - Form management
 
-- Check it out on [here](https://mvkirimi.com) !
+Check it out on [here](https://mvkirimi.com) !
