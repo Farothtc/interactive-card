@@ -13,6 +13,18 @@ export default function Home() {
     cvc: "",
   });
   const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     setCredentials((prevState) => ({
@@ -31,55 +43,91 @@ export default function Home() {
   function handleResetSubmission() {
     setIsSubmitted(false); // Reset the isSubmitted state
   }
+
   const style = {
     backgroundImage: "url(/bg-main-desktop.png)",
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
   };
 
+  const smStyle = {
+    backgroundImage: "url(/bg-main-mobile.png)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "contain", // Change to cover for small screens
+  };
+
   return (
-    <main style={style} className="min-h-screen bg-white">
-      <div className="container top-[50%] left-[50%] absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-row items-center justify-center gap-5">
-        <div className="flex flex-col items-center justify-center gap-6">
+    <main
+      style={isMobile ? smStyle : style}
+      className="min-h-screen bg-white sm:bg-white"
+    >
+      <div className="container top-[40%] sm:top-[50%] left-[50%] absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col sm:flex-row items-center justify-center gap-5">
+        <div className="flex flex-col items-center justify-center sm:gap-6">
           <div className="relative">
+            {isMobile ? (
+              <>
+                <Image
+                  src="/bg-card-back.png"
+                  alt="Card Back"
+                  width={isMobile ? 300 : 500}
+                  height={isMobile ? 200 : 350}
+                  className="ms-10 relative z-10"
+                />
+                <span className="absolute z-21 top-[36%] right-[8%] sm:top-[48%] sm:right-[10%] transform -translate-x-1/2 -translate-y-1/2 text-white text-sm tracking-widest">
+                  {credentials.cvc !== "" ? credentials.cvc : "000"}
+                </span>
+              </>
+            ) : (
+              ""
+            )}
             <Image
               src="/bg-card-front.png"
               alt="Card Front"
-              width={500}
-              height={350}
-              className="me-64 relative"
+              width={isMobile ? 300 : 500}
+              height={isMobile ? 200 : 350}
+              className={
+                isMobile
+                  ? "top-[42%] sm:top-[20%] sm:right-[10%] right-[13%] absolute z-20"
+                  : "me-64 relative z-20"
+              }
             />
-            <span className="absolute w-12 h-12 bg-white top-[20%] left-[10%] transform -translate-x-1/2 -translate-y-1/2 rounded-3xl"></span>
-            <span className="absolute w-6 h-6 border border-white top-[20%] left-[18%] transform -translate-x-1/2 -translate-y-1/2 rounded-3xl"></span>
-            <span className="absolute text-white top-[65%] left-[32%] transform -translate-x-1/2 -translate-y-1/2 text-4xl tracking-widest">
+            <span className="absolute w-8 h-8 top-[60%] left-[10%] sm:w-12 sm:h-12 bg-white sm:top-[20%] sm:left-[10%] transform -translate-x-1/2 -translate-y-1/2 rounded-3xl z-21"></span>
+            <span className="absolute w-6 h-6 border border-white top-[20%] left-[18%] transform -translate-x-1/2 -translate-y-1/2 rounded-3xl z-21"></span>
+            <span className="absolute text-white top-[65%] left-[32%] transform -translate-x-1/2 -translate-y-1/2 text-4xl tracking-widest z-21">
               {credentials.number !== ""
                 ? credentials.number
                 : "0000 0000 0000 0000"}
             </span>
-            <span className="absolute text-white bottom-[5%] left-[16%] transform -translate-x-1/2 -translate-y-1/2 text-xl tracking-widest">
+            <span className="absolute text-white bottom-[5%] left-[16%] transform -translate-x-1/2 -translate-y-1/2 text-xl tracking-widest z-21">
               {credentials.name !== "" ? credentials.name : "JANE APPLESEED"}
             </span>
-            <span className="absolute text-white bottom-[5%] left-[57.5%] transform -translate-x-1/2 -translate-y-1/2 text-lg tracking-widest">
+            <span className="absolute text-white bottom-[5%] left-[57.5%] transform -translate-x-1/2 -translate-y-1/2 text-lg tracking-widest z-21">
               {credentials.month !== "" ? credentials.month : "00"}
             </span>
-            <span className="absolute text-white bottom-[5%] left-[60%] transform -translate-x-1/2 -translate-y-1/2 text-xl tracking-widest">
+            <span className="absolute text-white bottom-[5%] left-[60%] transform -translate-x-1/2 -translate-y-1/2 text-xl tracking-widest z-21">
               /
             </span>
-            <span className="absolute text-white bottom-[5%] left-[62.5%] transform -translate-x-1/2 -translate-y-1/2 text-lg tracking-widest">
+            <span className="absolute text-white bottom-[5%] left-[62.5%] transform -translate-x-1/2 -translate-y-1/2 text-lg tracking-widest z-21">
               {credentials.year !== "" ? credentials.year : "00"}
             </span>
           </div>
           <div className="relative">
-            <Image
-              src="/bg-card-back.png"
-              alt="Card Back"
-              width={500}
-              height={350}
-              className="relative"
-            />
-            <span className="absolute top-[48%] right-[10%] transform -translate-x-1/2 -translate-y-1/2 text-white text-lg tracking-widest">
-              {credentials.cvc !== "" ? credentials.cvc : "000"}
-            </span>
+            {isMobile ? (
+              ""
+            ) : (
+              <>
+                <Image
+                  src="/bg-card-back.png"
+                  alt="Card Back"
+                  width={isMobile ? 300 : 500}
+                  height={isMobile ? 200 : 350}
+                  className="relative"
+                />
+                <span className="absolute top-[48%] right-[10%] transform -translate-x-1/2 -translate-y-1/2 text-white text-lg tracking-widest">
+                  {credentials.cvc !== "" ? credentials.cvc : "000"}
+                </span>
+              </>
+            )}
           </div>
         </div>
         {isSubmitted === true ? (
