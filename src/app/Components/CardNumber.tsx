@@ -117,6 +117,15 @@ export default function CardNumber({
       setYearError("Wrong YY format");
     }
   };
+  const handleYearBlur = () => {
+    if (credentials.year.trim() === "") {
+      setYearError("Cannot be blank");
+    } else if (/^$|^2[5-9]?$|^3[0-9]?$/.test(credentials.year)) {
+      setYearError("");
+    } else {
+      setYearError("");
+    }
+  };
 
   // CVC Handlers
 
@@ -127,6 +136,16 @@ export default function CardNumber({
       handleChange(event);
     } else {
       setCvcError("Wrong CVC format");
+    }
+  };
+
+  const handleCvcBlur = () => {
+    if (credentials.cvc.trim() === "") {
+      setCvcError("Cannot be blank");
+    } else if (/^\d{0,3}$/.test(credentials.cvc)) {
+      setCvcError("");
+    } else {
+      setCvcError("");
     }
   };
 
@@ -214,6 +233,7 @@ export default function CardNumber({
                     id="year"
                     type="text"
                     onChange={handleYearChange}
+                    onBlur={handleYearBlur}
                     name="year"
                     value={credentials.year}
                     maxLength={2}
@@ -231,6 +251,7 @@ export default function CardNumber({
                     id="cvc"
                     type="text"
                     onChange={handleCvcChange}
+                    onBlur={handleCvcBlur}
                     name="cvc"
                     value={credentials.cvc}
                     maxLength={3}
