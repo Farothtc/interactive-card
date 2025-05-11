@@ -1,6 +1,6 @@
 ## Interactive Payment Page Project
 
-- This is a small project that reflects a payment page Front-End.
+This is a small project that reflects a payment page Front-End.
 
 ### Built with:
 
@@ -9,10 +9,11 @@
 - Tailwind CSS
 - Shadcn
 
-### Used methods:
+### Used methods/hooks:
 
 - Conditional rendering
 - useState
+- useEffect
 - Regex
 - Form management
 
