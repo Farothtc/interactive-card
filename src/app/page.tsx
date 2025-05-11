@@ -2,6 +2,7 @@
 import Image from "next/image";
 import CardNumber from "./Components/CardNumber";
 import * as React from "react";
+import SubmittedForm from "./Components/SubmittedForm";
 
 export default function Home() {
   const [credentials, setCredentials] = React.useState({
@@ -26,6 +27,9 @@ export default function Home() {
       console.log("form submitted");
       setIsSubmitted(true);
     }
+  }
+  function handleResetSubmission() {
+    setIsSubmitted(false); // Reset the isSubmitted state
   }
   const style = {
     backgroundImage: "url(/bg-main-desktop.png)",
@@ -78,11 +82,15 @@ export default function Home() {
             </span>
           </div>
         </div>
-        <CardNumber
-          credentials={credentials}
-          handleChange={handleChange}
-          handleClick={handleClick}
-        />
+        {isSubmitted === true ? (
+          <SubmittedForm onReset={handleResetSubmission} />
+        ) : (
+          <CardNumber
+            credentials={credentials}
+            handleChange={handleChange}
+            handleClick={handleClick}
+          />
+        )}
       </div>
     </main>
   );
