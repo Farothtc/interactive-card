@@ -18,7 +18,7 @@ export default function CardNumber({
     cvc: string;
   };
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleClick: () => void;
 }) {
   const [nameError, setNameError] = React.useState("");
   const [numberError, setNumberError] = React.useState("");

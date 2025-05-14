@@ -33,7 +33,7 @@ export default function Home() {
     }));
   }
 
-  function handleClick(_event: React.MouseEvent<HTMLButtonElement>) {
+  function handleClick() {
     const { name, number, month, year, cvc } = credentials;
     if (name && number && month && year && cvc) {
       console.log("form submitted");
