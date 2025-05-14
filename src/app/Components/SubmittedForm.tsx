@@ -16,7 +16,7 @@ export default function SubmittedForm({ onReset }: { onReset: () => void }) {
           THANK YOU!
         </h1>
         <p className="text-gray-500 font-medium tracking-wider">
-          We've added your card details
+          We&apos;ve added your card details
         </p>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center gap-4">
