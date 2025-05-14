@@ -17,4 +17,4 @@ This is a small project that reflects a payment page Front-End.
 - Regex
 - Form management
 
-Check it out on [here](https://mvkirimi.com) !
+Check it out on [here](https://interactive-card-five.vercel.app) !
