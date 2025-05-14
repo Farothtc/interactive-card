@@ -41,7 +41,7 @@ export default function Home() {
     }
   }
   function handleResetSubmission() {
-    setIsSubmitted(false); // Reset the isSubmitted state
+    setIsSubmitted(false);
   }
 
   const style = {
@@ -53,7 +53,7 @@ export default function Home() {
   const smStyle = {
     backgroundImage: "url(/bg-main-mobile.png)",
     backgroundRepeat: "no-repeat",
-    backgroundSize: "contain", // Change to cover for small screens
+    backgroundSize: "contain",
   };
 
   return (
