@@ -63,7 +63,7 @@ export default function Home() {
     >
       <div className="container top-[40%] sm:top-[50%] left-[50%] absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col sm:flex-row items-center justify-center gap-5">
         <div className="flex flex-col items-center justify-center sm:gap-6">
-          <div className="relative">
+          <div className="relative mb-25">
             {isMobile ? (
               <>
                 <Image
@@ -73,7 +73,7 @@ export default function Home() {
                   height={isMobile ? 200 : 350}
                   className="ms-10 relative z-10"
                 />
-                <span className="absolute z-21 top-[36%] right-[8%] sm:top-[48%] sm:right-[10%] transform -translate-x-1/2 -translate-y-1/2 text-white text-sm tracking-widest">
+                <span className="absolute z-21 top-[48.5%] right-[8%] transform -translate-x-1/2 -translate-y-1/2 text-white text-sm tracking-widest">
                   {credentials.cvc !== "" ? credentials.cvc : "000"}
                 </span>
               </>
@@ -87,29 +87,54 @@ export default function Home() {
               height={isMobile ? 200 : 350}
               className={
                 isMobile
-                  ? "top-[42%] sm:top-[20%] sm:right-[10%] right-[13%] absolute z-20"
+                  ? "top-[55%] right-[13%] absolute z-20"
                   : "me-64 relative z-20"
               }
             />
-            <span className="absolute w-8 h-8 top-[60%] left-[10%] sm:w-12 sm:h-12 bg-white sm:top-[20%] sm:left-[10%] transform -translate-x-1/2 -translate-y-1/2 rounded-3xl z-21"></span>
-            <span className="absolute w-6 h-6 border border-white top-[20%] left-[18%] transform -translate-x-1/2 -translate-y-1/2 rounded-3xl z-21"></span>
-            <span className="absolute text-white top-[65%] left-[32%] transform -translate-x-1/2 -translate-y-1/2 text-4xl tracking-widest z-21">
+            <span className="absolute text-white top-[115%] left-[42%] text-xl text-nowrap sm:top-[65%] sm:left-[32%] transform -translate-x-1/2 -translate-y-1/2 sm:text-4xl tracking-widest z-21">
               {credentials.number !== ""
                 ? credentials.number
                 : "0000 0000 0000 0000"}
             </span>
-            <span className="absolute text-white bottom-[5%] left-[16%] transform -translate-x-1/2 -translate-y-1/2 text-xl tracking-widest z-21">
-              {credentials.name !== "" ? credentials.name : "JANE APPLESEED"}
-            </span>
-            <span className="absolute text-white bottom-[5%] left-[57.5%] transform -translate-x-1/2 -translate-y-1/2 text-lg tracking-widest z-21">
-              {credentials.month !== "" ? credentials.month : "00"}
-            </span>
-            <span className="absolute text-white bottom-[5%] left-[60%] transform -translate-x-1/2 -translate-y-1/2 text-xl tracking-widest z-21">
-              /
-            </span>
-            <span className="absolute text-white bottom-[5%] left-[62.5%] transform -translate-x-1/2 -translate-y-1/2 text-lg tracking-widest z-21">
-              {credentials.year !== "" ? credentials.year : "00"}
-            </span>
+            {isMobile ? (
+              <>
+                <span className="absolute w-8 h-8 top-[75%] left-[10%] bg-white transform -translate-x-1/2 -translate-y-1/2 rounded-3xl z-21"></span>
+                <span className="absolute w-4 h-4 border border-white top-[75%] left-[20%] transform -translate-x-1/2 -translate-y-1/2 rounded-3xl z-21"></span>
+                <span className="absolute text-white top-[140%] left-[20%] text-xs transform -translate-x-1/2 -translate-y-1/2 tracking-widest z-21">
+                  {credentials.name !== ""
+                    ? credentials.name
+                    : "JANE APPLESEED"}
+                </span>
+                <span className="absolute text-white top-[140%] left-[70%] text-xs  transform -translate-x-1/2 -translate-y-1/2  tracking-widest z-21">
+                  {credentials.month !== "" ? credentials.month : "00"}
+                </span>
+                <span className="absolute text-white top-[140%] left-[74%] transform -translate-x-1/2 -translate-y-1/2 text-xs tracking-widest z-21">
+                  /
+                </span>
+                <span className="absolute text-white top-[140%] left-[78%] transform -translate-x-1/2 -translate-y-1/2 text-xs tracking-widest z-21">
+                  {credentials.year !== "" ? credentials.year : "00"}
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="absolute w-12 h-12 bg-white top-[20%] left-[10%] transform -translate-x-1/2 -translate-y-1/2 rounded-3xl z-21"></span>
+                <span className="absolute w-6 h-6 border border-white top-[20%] left-[18%] transform -translate-x-1/2 -translate-y-1/2 rounded-3xl z-21"></span>
+                <span className="absolute text-white bottom-[5%] left-[16%] transform -translate-x-1/2 -translate-y-1/2 text-xl tracking-widest z-21">
+                  {credentials.name !== ""
+                    ? credentials.name
+                    : "JANE APPLESEED"}
+                </span>
+                <span className="absolute text-white bottom-[5%] left-[57.5%] transform -translate-x-1/2 -translate-y-1/2 text-lg tracking-widest z-21">
+                  {credentials.month !== "" ? credentials.month : "00"}
+                </span>
+                <span className="absolute text-white bottom-[5%] left-[60%] transform -translate-x-1/2 -translate-y-1/2 text-xl tracking-widest z-21">
+                  /
+                </span>
+                <span className="absolute text-white bottom-[5%] left-[62.5%] transform -translate-x-1/2 -translate-y-1/2 text-lg tracking-widest z-21">
+                  {credentials.year !== "" ? credentials.year : "00"}
+                </span>
+              </>
+            )}
           </div>
           <div className="relative">
             {isMobile ? (
